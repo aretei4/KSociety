@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="screen_padding">16dp</dimen>
+    <dimen name="card_radius">16dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="avatar_size">40dp</dimen>
+    <dimen name="avatar_large">56dp</dimen>
+    <dimen name="bottom_nav_height">64dp</dimen>
+    <dimen name="header_height">120dp</dimen>
+    <dimen name="input_corner_radius">12dp</dimen>
+    <dimen name="button_corner_radius">14dp</dimen>
+    <dimen name="pill_corner_radius">20dp</dimen>
+    <dimen name="section_spacing">20dp</dimen>
+    <dimen name="item_spacing">8dp</dimen>
+</resources>
