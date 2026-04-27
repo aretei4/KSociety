@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical" android:paddingStart="20dp" android:paddingEnd="20dp"
+    android:paddingTop="20dp" android:paddingBottom="16dp">
+
+    <!-- Title row -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:layout_marginBottom="4dp">
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Loan Details" android:textColor="#1A1F1C"
+                android:textSize="20sp" android:textStyle="bold"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Step 2 of 3" android:textColor="#8A9690" android:textSize="12sp"/>
+        </LinearLayout>
+        <TextView android:id="@+id/btn_close" android:layout_width="32dp" android:layout_height="32dp"
+            android:background="@drawable/bg_close_btn" android:gravity="center"
+            android:text="✕" android:textColor="#8A9690" android:textSize="14sp"
+            android:clickable="true" android:focusable="true"/>
+    </LinearLayout>
+
+    <!-- Progress -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:weightSum="3"
+        android:layout_marginTop="12dp" android:layout_marginBottom="16dp">
+        <View android:layout_width="0dp" android:layout_height="3dp" android:layout_weight="1"
+            android:background="#1A56A0" android:layout_marginEnd="4dp"/>
+        <View android:layout_width="0dp" android:layout_height="3dp" android:layout_weight="1"
+            android:background="#1A56A0" android:layout_marginEnd="4dp"/>
+        <View android:layout_width="0dp" android:layout_height="3dp" android:layout_weight="1"
+            android:background="#E2E8E4"/>
+    </LinearLayout>
+
+    <!-- Selected member banner -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@drawable/bg_member_selected_banner" android:orientation="horizontal"
+        android:gravity="center_vertical" android:padding="12dp" android:layout_marginBottom="16dp">
+        <FrameLayout android:layout_width="36dp" android:layout_height="36dp"
+            android:background="@drawable/bg_avatar" android:layout_marginEnd="10dp">
+            <TextView android:id="@+id/tv_member_avatar" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_gravity="center"
+                android:textColor="#1A56A0" android:textSize="11sp" android:textStyle="bold"/>
+        </FrameLayout>
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical">
+            <TextView android:id="@+id/tv_member_name" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:textColor="#1A1F1C"
+                android:textSize="14sp" android:textStyle="bold"/>
+            <TextView android:id="@+id/tv_existing_loan" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:textColor="#8A9690" android:textSize="12sp"/>
+        </LinearLayout>
+        <TextView android:id="@+id/btn_change_member" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="Change"
+            android:textColor="#1A56A0" android:textSize="13sp" android:textStyle="bold"
+            android:clickable="true" android:focusable="true"/>
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_weight="1">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Loan Amount card -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:background="@drawable/bg_amount_card" android:orientation="vertical"
+                android:padding="14dp" android:layout_marginBottom="10dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_marginBottom="10dp">
+                    <FrameLayout android:layout_width="30dp" android:layout_height="30dp"
+                        android:background="@drawable/bg_icon_blue" android:layout_marginEnd="10dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:layout_gravity="center" android:text="💸" android:textSize="14sp"/>
+                    </FrameLayout>
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Loan Amount" android:textColor="#1A56A0"
+                            android:textSize="13sp" android:textStyle="bold"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Amount to disburse" android:textColor="#8A9690" android:textSize="11sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="46dp"
+                    android:background="@drawable/bg_amount_input" android:orientation="horizontal"
+                    android:gravity="center_vertical" android:paddingStart="12dp"
+                    android:paddingEnd="12dp" android:layout_marginBottom="8dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="₹" android:textSize="16sp" android:textColor="#8A9690"
+                        android:layout_marginEnd="4dp"/>
+                    <EditText android:id="@+id/et_loan_amount" android:layout_width="0dp"
+                        android:layout_height="match_parent" android:layout_weight="1"
+                        android:background="@null" android:hint="0" android:textColorHint="#8A9690"
+                        android:textSize="18sp" android:textStyle="bold" android:textColor="#1A1F1C"
+                        android:inputType="number"/>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/layout_amount_quickfill"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal"/>
+            </LinearLayout>
+
+            <!-- Interest Rate card -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:background="@drawable/bg_amount_card" android:orientation="vertical"
+                android:padding="14dp" android:layout_marginBottom="10dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_marginBottom="10dp">
+                    <FrameLayout android:layout_width="30dp" android:layout_height="30dp"
+                        android:background="@drawable/bg_icon_green" android:layout_marginEnd="10dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:layout_gravity="center" android:text="📈" android:textSize="14sp"/>
+                    </FrameLayout>
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="Interest Rate" android:textColor="#1F7A4A"
+                            android:textSize="13sp" android:textStyle="bold"/>
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="% per month" android:textColor="#8A9690" android:textSize="11sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="46dp"
+                    android:background="@drawable/bg_amount_input" android:orientation="horizontal"
+                    android:gravity="center_vertical" android:paddingStart="12dp"
+                    android:paddingEnd="12dp" android:layout_marginBottom="8dp">
+                    <EditText android:id="@+id/et_loan_rate" android:layout_width="0dp"
+                        android:layout_height="match_parent" android:layout_weight="1"
+                        android:background="@null" android:hint="2" android:textColorHint="#8A9690"
+                        android:textSize="18sp" android:textStyle="bold" android:textColor="#1F7A4A"
+                        android:inputType="numberDecimal"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="% / mo" android:textSize="13sp" android:textColor="#8A9690"/>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/layout_rate_quickfill"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal"/>
+            </LinearLayout>
+
+            <!-- Purpose card -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:background="@drawable/bg_amount_card" android:orientation="vertical"
+                android:padding="14dp" android:layout_marginBottom="10dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_marginBottom="10dp">
+                    <FrameLayout android:layout_width="30dp" android:layout_height="30dp"
+                        android:background="@drawable/bg_icon_orange" android:layout_marginEnd="10dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:layout_gravity="center" android:text="📋" android:textSize="14sp"/>
+                    </FrameLayout>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Purpose" android:textColor="#D4600A"
+                        android:textSize="13sp" android:textStyle="bold"/>
+                </LinearLayout>
+                <!-- Purpose chips grid -->
+                <LinearLayout android:id="@+id/layout_purpose_row1"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:layout_marginBottom="8dp"/>
+                <LinearLayout android:id="@+id/layout_purpose_row2"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal"/>
+            </LinearLayout>
+
+            <!-- Interest Preview card -->
+            <LinearLayout android:id="@+id/card_interest_preview"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:background="@drawable/bg_stat_card_blue" android:orientation="vertical"
+                android:padding="14dp" android:layout_marginBottom="4dp"
+                android:visibility="gone">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="INTEREST PREVIEW" android:textColor="#1A56A0"
+                    android:textSize="10sp" android:textStyle="bold" android:layout_marginBottom="10dp"/>
+                <LinearLayout android:id="@+id/layout_preview_rows"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Buttons -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:weightSum="3" android:layout_marginTop="16dp">
+        <Button android:id="@+id/btn_back" android:layout_width="0dp" android:layout_height="50dp"
+            android:layout_weight="1" android:layout_marginEnd="10dp"
+            android:background="@drawable/btn_back_outline"
+            android:text="← Back" android:textColor="#8A9690"
+            android:textSize="13sp" android:textStyle="bold"/>
+        <Button android:id="@+id/btn_review"
+            android:layout_width="0dp" android:layout_height="50dp"
+            android:layout_weight="2" android:background="@drawable/btn_loan_enabled"
+            android:text="Review →" android:textColor="#FFFFFF"
+            android:textSize="14sp" android:textStyle="bold"/>
+    </LinearLayout>
+
+</LinearLayout>

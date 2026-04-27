@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical" android:padding="20dp">
+
+    <!-- Header -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="4dp">
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Review &amp; Save" android:textColor="#1A1F1C"
+                android:textSize="20sp" android:textStyle="bold"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Step 3 of 3" android:textColor="#8A9690" android:textSize="12sp"/>
+        </LinearLayout>
+        <TextView android:id="@+id/btn_close" android:layout_width="32dp" android:layout_height="32dp"
+            android:background="@drawable/bg_close_btn" android:gravity="center"
+            android:text="✕" android:textColor="#8A9690" android:textSize="14sp"
+            android:clickable="true" android:focusable="true"/>
+    </LinearLayout>
+
+    <!-- Progress — all filled -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:layout_marginTop="12dp"
+        android:layout_marginBottom="16dp" android:weightSum="3">
+        <View android:layout_width="0dp" android:layout_height="3dp" android:layout_weight="1"
+            android:background="#1F5C3A" android:layout_marginEnd="4dp"/>
+        <View android:layout_width="0dp" android:layout_height="3dp" android:layout_weight="1"
+            android:background="#1F5C3A" android:layout_marginEnd="4dp"/>
+        <View android:layout_width="0dp" android:layout_height="3dp" android:layout_weight="1"
+            android:background="#1F5C3A"/>
+    </LinearLayout>
+
+    <!-- Member banner -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@drawable/bg_member_selected_banner"
+        android:orientation="horizontal" android:gravity="center_vertical"
+        android:padding="12dp" android:layout_marginBottom="16dp">
+        <FrameLayout android:layout_width="36dp" android:layout_height="36dp"
+            android:background="@drawable/bg_avatar" android:layout_marginEnd="10dp">
+            <TextView android:id="@+id/tv_member_avatar" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_gravity="center"
+                android:textColor="#1F5C3A" android:textSize="11sp" android:textStyle="bold"/>
+        </FrameLayout>
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical">
+            <TextView android:id="@+id/tv_member_name" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:textColor="#1A1F1C"
+                android:textSize="14sp" android:textStyle="bold"/>
+            <TextView android:id="@+id/tv_payment_date" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:textColor="#8A9690" android:textSize="12sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- PAYMENT BREAKDOWN label -->
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="PAYMENT BREAKDOWN" android:textColor="#8A9690" android:textSize="11sp"
+        android:textStyle="bold" android:layout_marginBottom="10dp"/>
+
+    <!-- Breakdown card -->
+    <LinearLayout android:id="@+id/layout_breakdown"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@drawable/bg_card" android:orientation="vertical"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Buttons -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:weightSum="3">
+        <Button android:id="@+id/btn_edit" android:layout_width="0dp" android:layout_height="50dp"
+            android:layout_weight="1" android:layout_marginEnd="10dp"
+            android:background="@drawable/btn_back_outline"
+            android:text="← Edit" android:textColor="#8A9690"
+            android:textSize="13sp" android:textStyle="bold"/>
+        <Button android:id="@+id/btn_confirm" android:layout_width="0dp" android:layout_height="50dp"
+            android:layout_weight="2" android:background="@drawable/btn_primary_green"
+            android:text="✓ Confirm &amp; Save" android:textColor="#FFFFFF"
+            android:textSize="14sp" android:textStyle="bold"/>
+    </LinearLayout>
+
+</LinearLayout>

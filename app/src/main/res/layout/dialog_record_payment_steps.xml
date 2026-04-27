@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Hidden in Step 2 — member already chosen in Step 1 dialog -->
+    <TextView
+        android:id="@+id/label_select_member"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="SELECT MEMBER"
+        android:textColor="@color/text_muted"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+
+    <Spinner
+        android:id="@+id/spinner_member"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/bg_input_field"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:visibility="gone"/>
+
+    <!-- Member + loan info banner (shown in Step 2) -->
+    <TextView
+        android:id="@+id/tv_loan_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:background="#E8F2EC"
+        android:padding="10dp"
+        android:textColor="@color/header_green"
+        android:textSize="12sp"
+        android:visibility="gone"/>
+
+    <!-- Principal -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Principal Repayment (₹)"
+        android:textColor="@color/color_blue"
+        android:textSize="12sp"
+        android:textStyle="bold"/>
+    <EditText
+        android:id="@+id/et_pay_amount"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_input_field"
+        android:hint="0"
+        android:inputType="number"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textSize="14sp"/>
+
+    <!-- Interest -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Interest (₹)"
+        android:textColor="@color/color_green"
+        android:textSize="12sp"
+        android:textStyle="bold"/>
+    <EditText
+        android:id="@+id/et_pay_interest"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_input_field"
+        android:hint="0"
+        android:inputType="number"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textSize="14sp"/>
+
+    <!-- Penalty -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Penalty (₹)"
+        android:textColor="@color/color_red"
+        android:textSize="12sp"
+        android:textStyle="bold"/>
+    <EditText
+        android:id="@+id/et_pay_penalty"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_input_field"
+        android:hint="0"
+        android:inputType="number"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textSize="14sp"/>
+
+    <!-- Fee — hidden (removed per request) -->
+    <EditText
+        android:id="@+id/et_pay_fee"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:inputType="number"/>
+
+</LinearLayout>

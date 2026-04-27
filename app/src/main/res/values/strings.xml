@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KSociety</string>
+    <string name="splash_tagline">Kahaga Society — Chit Fund Manager</string>
+    <string name="search_hint">Search by name or phone…</string>
+    <string name="no_members">No members yet. Tap + to add one!</string>
+</resources>

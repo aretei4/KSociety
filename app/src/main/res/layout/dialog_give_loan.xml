@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_current_loan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="#EBF2FC"
+        android:padding="10dp"
+        android:textColor="#1A56A0"
+        android:textSize="12sp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Loan Amount (&#8377;) *"
+        android:textColor="@color/color_blue"
+        android:textSize="12sp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/et_loan_amount"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_input_field"
+        android:hint="e.g. 10000"
+        android:inputType="number"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Interest Rate (% per month)"
+        android:textColor="@color/text_muted"
+        android:textSize="12sp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/et_loan_rate"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_input_field"
+        android:hint="2"
+        android:inputType="numberDecimal"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tv_loan_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EBF2FC"
+        android:lineSpacingMultiplier="1.4"
+        android:padding="12dp"
+        android:textColor="#1A56A0"
+        android:textSize="12sp"
+        android:visibility="gone"/>
+
+</LinearLayout>
