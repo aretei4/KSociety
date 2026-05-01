@@ -53,7 +53,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="90dp"
         android:contentDescription="Import CSV"
-        android:src="@drawable/ic_nav_back"
+        android:src="@drawable/ic_import"
         app:backgroundTint="@color/color_blue"
         app:tint="@color/white"
         app:fabSize="mini"/>
