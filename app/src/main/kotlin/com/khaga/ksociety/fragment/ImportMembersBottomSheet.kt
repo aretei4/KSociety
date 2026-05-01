@@ -180,7 +180,7 @@ class ImportMembersBottomSheet : BottomSheetDialogFragment() {
         card.addView(TextView(ctx).apply {
             text = "• Only name is required  •  Leave other columns blank to use defaults\n" +
                    "• amt_borrowed = current loan in ₹  •  join_date e.g. Jan 2025"
-            textSize = 10f; lineSpacingMultiplier = 1.4f
+            textSize = 10f; setLineSpacing(0f, 1.4f)
             setTextColor(ContextCompat.getColor(ctx, R.color.text_muted))
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
