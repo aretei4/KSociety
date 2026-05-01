@@ -1,85 +1,75 @@
 package com.khaga.ksociety.viewmodel
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.khaga.ksociety.api.BackupManager
-import com.khaga.ksociety.api.RetrofitClient
+import com.khaga.ksociety.api.DbStats
 import com.khaga.ksociety.database.AppDatabase
-import com.khaga.ksociety.database.FundDao
-import com.khaga.ksociety.database.MemberDao
-import com.khaga.ksociety.database.PaymentDao
-import com.khaga.ksociety.database.ReportDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-
-data class BackupStats(val funds: Int, val members: Int, val payments: Int)
-data class BackupResult(val success: Boolean, val message: String)
 
 class BackupViewModel(app: Application) : AndroidViewModel(app) {
 
-    private val db         = AppDatabase.getInstance(app)
-    private val fundDao    = FundDao(db)
-    private val memberDao  = MemberDao(db)
-    private val paymentDao = PaymentDao(db)
-    private val reportDao  = ReportDao(db)
+    data class BackupResult(val success: Boolean, val message: String)
 
-    private val _stats  = MutableLiveData<BackupStats>()
-    private val _result = MutableLiveData<BackupResult>()
-    private val _loading = MutableLiveData<Boolean>()
+    private val _loading = MutableLiveData(false)
+    private val _result  = MutableLiveData<BackupResult>()
+    private val _stats   = MutableLiveData<DbStats>()
 
-    val stats:   LiveData<BackupStats>   = _stats
-    val result:  LiveData<BackupResult>  = _result
-    val loading: LiveData<Boolean>       = _loading
-
+    val loading: LiveData<Boolean>      = _loading
+    val result:  LiveData<BackupResult> = _result
+    val stats:   LiveData<DbStats>      = _stats
+    private val db        = AppDatabase.getInstance(app)
     fun refreshStats() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _stats.postValue(BackupStats(
-                funds    = fundDao.getAll().size,
-                members  = memberDao.getAll().size,
-                payments = paymentDao.getAll().size
-            ))
+        viewModelScope.launch {
+            _stats.value = BackupManager.getDbStats(getApplication())
         }
     }
 
-    fun performBackup(context: android.content.Context) {
-        _loading.value = true
-        BackupManager.performBackup(context, fundDao, memberDao, paymentDao, reportDao,
-            object : BackupManager.BackupCallback {
-                override fun onSuccess(message: String) {
-                    _loading.postValue(false)
-                    _result.postValue(BackupResult(true, message))
-                }
-                override fun onFailure(error: String) {
-                    _loading.postValue(false)
-                    _result.postValue(BackupResult(false, error))
-                }
-            })
+    fun clearDatabase() {
+        viewModelScope.launch(Dispatchers.IO) {
+            db.clearAllData()
+          //  loadAll()
+        }
     }
 
-    fun performRestore(context: android.content.Context) {
-        _loading.value = true
-        BackupManager.performRestore(context,
-            object : BackupManager.BackupCallback {
-                override fun onSuccess(message: String) {
-                    _loading.postValue(false)
-                    _result.postValue(BackupResult(true, message))
-                    refreshStats()
-                }
-                override fun onFailure(error: String) {
-                    _loading.postValue(false)
-                    _result.postValue(BackupResult(false, error))
-                }
-            })
+    fun performBackup(ctx: Context) {
+        viewModelScope.launch {
+            _loading.value = true
+            val outcome = BackupManager.performBackup(ctx)
+            _loading.value = false
+            if (outcome.isSuccess) {
+                val r = outcome.getOrThrow()
+                _result.value = BackupResult(true,
+                    "✅ Backup saved!\n" +
+                            "${r.fundsCount} funds · ${r.membersCount} members · ${r.paymentsCount} payments\n" +
+                            "File: ${r.fileName}")
+            } else {
+                _result.value = BackupResult(false,
+                    "❌ Backup failed\n${outcome.exceptionOrNull()?.message}")
+            }
+        }
     }
 
-    fun saveBaseUrl(context: android.content.Context, url: String) {
-        RetrofitClient.setBaseUrl(context, url)
+    fun performRestore(ctx: Context) {
+        viewModelScope.launch {
+            _loading.value = true
+            val outcome = BackupManager.performRestore(ctx)
+            _loading.value = false
+            _result.value = if (outcome.isSuccess) {
+                BackupResult(true, "✅ Restore complete!\n${outcome.getOrThrow()}")
+            } else {
+                BackupResult(false, "❌ Restore failed\n${outcome.exceptionOrNull()?.message}")
+            }
+        }
     }
 
-    fun getCurrentUrl(context: android.content.Context): String =
-        RetrofitClient.getCurrentBaseUrl(context)
+    fun getCurrentUrl(ctx: Context) = BackupManager.getBaseUrl(ctx)
+    fun saveBaseUrl(ctx: Context, url: String) = BackupManager.setBaseUrl(ctx, url)
+    fun getDeviceId(ctx: Context) = BackupManager.getDeviceId(ctx)
+    fun saveDeviceId(ctx: Context, id: String) = BackupManager.setDeviceId(ctx, id)
 }

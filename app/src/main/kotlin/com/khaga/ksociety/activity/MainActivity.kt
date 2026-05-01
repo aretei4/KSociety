@@ -37,11 +37,11 @@ class MainActivity : AppCompatActivity() {
         homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
         // ── Show "Clear database" dialog ONCE on very first install ──
-        val prefs     = getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+       val prefs     = getSharedPreferences(PREFS, Context.MODE_PRIVATE)
         val isFirst   = prefs.getBoolean(KEY_FIRST, true)
         if (isFirst) {
             prefs.edit().putBoolean(KEY_FIRST, false).apply()
-            showFirstLaunchDialog()
+           showFirstLaunchDialog()
         }
 
         // BottomNav starts hidden — shown only inside a fund
@@ -63,8 +63,12 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Sample data loaded ✓", Toast.LENGTH_SHORT).show()
                 refreshHomeFragment()
             }
-            .setNegativeButton("Start Fresh", null)
-            .setCancelable(false)
+            .setNegativeButton("Start Fresh") {_, _ ->
+                homeViewModel.clearDatabase()
+                Toast.makeText(this, "Databa se cleared ✓", Toast.LENGTH_SHORT).show()
+                refreshHomeFragment()
+            }
+            .setCancelable(true)
             .show()
     }
 
