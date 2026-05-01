@@ -55,6 +55,11 @@ class MembersFragment : Fragment() {
             (requireActivity() as MainActivity).navigateTo(f, "add_member")
             (requireActivity() as MainActivity).hideBottomNav()
         }
+        binding.fabImportCsv.setOnClickListener {
+            val sheet = ImportMembersBottomSheet.newInstance(fundId)
+            sheet.onImportDone = { viewModel.loadMembers(fundId) }
+            sheet.show(childFragmentManager, "import_members")
+        }
         setupObservers()
     }
 
