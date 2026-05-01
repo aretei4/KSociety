@@ -64,15 +64,14 @@ class AppDatabase private constructor(context: Context) :
     }
 
     fun clearAllData() {
-        writableDatabase.use { db ->
-            db.execSQL("PRAGMA foreign_keys = OFF;")
-            db.delete(TABLE_REPORTS,  null, null)
-            db.delete(TABLE_PAYMENTS, null, null)
-            db.delete(TABLE_MEMBERS,  null, null)
-            db.delete(TABLE_FUNDS,    null, null)
-            runCatching { db.execSQL("DELETE FROM sqlite_sequence") }
-            db.execSQL("PRAGMA foreign_keys = ON;")
-        }
+        val db = writableDatabase
+        db.execSQL("PRAGMA foreign_keys = OFF;")
+        db.delete(TABLE_REPORTS,  null, null)
+        db.delete(TABLE_PAYMENTS, null, null)
+        db.delete(TABLE_MEMBERS,  null, null)
+        db.delete(TABLE_FUNDS,    null, null)
+        runCatching { db.execSQL("DELETE FROM sqlite_sequence") }
+        db.execSQL("PRAGMA foreign_keys = ON;")
         Log.d(TAG, "All data cleared")
     }
 
