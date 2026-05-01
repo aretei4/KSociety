@@ -14,7 +14,8 @@ import com.khaga.ksociety.model.Fund
 import com.khaga.ksociety.util.CurrencyUtil
 
 class FundAdapter(
-    private val onFundClick: (Fund) -> Unit
+    private val onFundClick: (Fund) -> Unit,
+    private val onFundLongClick: (Fund) -> Unit = {}
 ) : ListAdapter<Fund, FundAdapter.FundViewHolder>(FundDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FundViewHolder {
@@ -35,6 +36,10 @@ class FundAdapter(
         init {
             binding.root.setOnClickListener {
                 onFundClick(getItem(adapterPosition))
+            }
+            binding.root.setOnLongClickListener {
+                onFundLongClick(getItem(adapterPosition))
+                true
             }
         }
 

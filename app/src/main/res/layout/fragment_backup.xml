@@ -200,6 +200,18 @@
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
+            <!-- Clear All Data button -->
+            <Button
+                android:id="@+id/btn_clear_data"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/bg_alert_red"
+                android:text="🗑  Clear All Data"
+                android:textColor="@color/color_red"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
             <!-- Progress -->
             <ProgressBar
                 android:id="@+id/progress_bar"

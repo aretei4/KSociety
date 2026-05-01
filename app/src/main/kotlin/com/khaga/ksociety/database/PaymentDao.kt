@@ -12,6 +12,14 @@ class PaymentDao(private val db: AppDatabase) {
         return db.writableDatabase.insert(TABLE_PAYMENTS, null, payment.toContentValues())
     }
 
+    fun update(payment: Payment): Boolean {
+        val rows = db.writableDatabase.update(
+            TABLE_PAYMENTS, payment.toContentValues(),
+            "${PaymentEntry.ID}=?", arrayOf(payment.id.toString())
+        )
+        return rows > 0
+    }
+
     fun delete(id: Long): Boolean {
         val rows = db.writableDatabase.delete(TABLE_PAYMENTS, "${PaymentEntry.ID}=?", arrayOf(id.toString()))
         return rows > 0

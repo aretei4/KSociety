@@ -317,10 +317,11 @@ class MemberPaymentDetailFragment : Fragment() {
     private fun showEditPaymentDialog(payment: Payment?, m: Member) {
         if (payment == null) return
         val sheet = PaymentFlowBottomSheet.newInstance(fundId)
-        sheet.members        = listOf(m)
-        sheet.selectedMember = m
+        sheet.members         = listOf(m)
+        sheet.selectedMember  = m
+        sheet.existingPayment = payment
         sheet.onPaymentSaved = { updated ->
-            viewModel.insertPayment(updated) { success ->
+            val onDone: (Boolean) -> Unit = { success ->
                 activity?.runOnUiThread {
                     _binding ?: return@runOnUiThread
                     Toast.makeText(requireContext(),
@@ -328,6 +329,8 @@ class MemberPaymentDetailFragment : Fragment() {
                     if (success) viewModel.loadPayments(fundId)
                 }
             }
+            if (updated.id > 0L) viewModel.updatePayment(updated, onDone)
+            else viewModel.insertPayment(updated, onDone)
         }
         sheet.show(childFragmentManager, "edit_payment")
     }

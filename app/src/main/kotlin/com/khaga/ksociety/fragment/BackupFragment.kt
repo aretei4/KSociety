@@ -1,5 +1,6 @@
 package com.khaga.ksociety.fragment
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -76,6 +77,19 @@ class BackupFragment : Fragment() {
         }
         binding.btnBackup.setOnClickListener  { viewModel.performBackup(requireContext()) }
         binding.btnRestore.setOnClickListener { viewModel.performRestore(requireContext()) }
+        binding.btnClearData.setOnClickListener {
+            AlertDialog.Builder(requireContext())
+                .setTitle("Clear All Data?")
+                .setMessage("This will permanently delete all funds, members, and payments. This cannot be undone.")
+                .setPositiveButton("Clear All") { _, _ ->
+                    viewModel.clearAllData {
+                        _binding ?: return@clearAllData
+                        Toast.makeText(requireContext(), "All data cleared.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
+        }
     }
 
     private fun setupObservers() {
@@ -84,8 +98,10 @@ class BackupFragment : Fragment() {
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
             binding.btnBackup.isEnabled    = !isLoading
             binding.btnRestore.isEnabled   = !isLoading
+            binding.btnClearData.isEnabled = !isLoading
             binding.btnBackup.alpha        = if (isLoading) 0.5f else 1f
             binding.btnRestore.alpha       = if (isLoading) 0.5f else 1f
+            binding.btnClearData.alpha     = if (isLoading) 0.5f else 1f
         }
 
         viewModel.stats.observe(viewLifecycleOwner) { stats ->

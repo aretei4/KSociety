@@ -29,6 +29,7 @@ class PaymentFlowBottomSheet : BottomSheetDialogFragment() {
 
     var members: List<Member> = emptyList()
     var selectedMember: Member? = null
+    var existingPayment: Payment? = null
     var onPaymentSaved: ((Payment) -> Unit)? = null
     var fundId = -1L
 
@@ -160,6 +161,14 @@ class PaymentFlowBottomSheet : BottomSheetDialogFragment() {
         b.etPenalty.setText("0")
         if (member.fees > 0) b.etFee.setText(member.fees.toString())
 
+        // Pre-fill from existing payment when editing
+        existingPayment?.let { ep ->
+            if (ep.principal > 0 && hasLoan) b.etPrincipal.setText(ep.principal.toString())
+            if (ep.interest  > 0 && hasLoan) b.etInterest.setText(ep.interest.toString())
+            if (ep.penalty   > 0)            b.etPenalty.setText(ep.penalty.toString())
+            if (ep.memberFee > 0)            b.etFee.setText(ep.memberFee.toString())
+        }
+
         // Quick-fill buttons
         if (hasLoan) {
             addQuickFill(b.layoutPrincipalQuickfill, listOf(1000L, 2000L, 5000L), b.etPrincipal, "#1A56A0", dp)
@@ -282,6 +291,7 @@ class PaymentFlowBottomSheet : BottomSheetDialogFragment() {
                 if (fee       > 0) add("Member Fee")
             }
             val payment = Payment(
+                id           = existingPayment?.id ?: 0L,
                 memberId     = member.id,
                 memberName   = member.name,
                 memberAvatar = member.avatar,

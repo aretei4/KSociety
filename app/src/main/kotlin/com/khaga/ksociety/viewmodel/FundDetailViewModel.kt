@@ -102,6 +102,14 @@ class FundDetailViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    fun updatePayment(payment: Payment, onDone: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            val ok = withContext(Dispatchers.IO) { paymentDao.update(payment) }
+            onDone(ok)
+            if (ok) withContext(Dispatchers.IO) { loadPaymentsInternal(payment.fundId) }
+        }
+    }
+
     fun insertPayment(payment: Payment, onDone: (Boolean) -> Unit) {
         viewModelScope.launch {
             val id = withContext(Dispatchers.IO) { paymentDao.insert(payment) }
