@@ -76,6 +76,14 @@ class BackupViewModel(app: Application) : AndroidViewModel(app) {
             })
     }
 
+    fun clearAllData(onDone: () -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            db.clearAllData()
+            refreshStats()
+            withContext(Dispatchers.Main) { onDone() }
+        }
+    }
+
     fun saveBaseUrl(context: android.content.Context, url: String) {
         RetrofitClient.setBaseUrl(context, url)
     }

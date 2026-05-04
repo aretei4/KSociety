@@ -41,6 +41,14 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    fun deleteFund(fundId: Long, onDone: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            val ok = withContext(Dispatchers.IO) { fundDao.delete(fundId) }
+            onDone(ok)
+            if (ok) loadAll()
+        }
+    }
+
     fun clearDatabase() {
         viewModelScope.launch(Dispatchers.IO) {
             db.clearAllData()

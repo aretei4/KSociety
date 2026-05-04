@@ -44,4 +44,17 @@
         android:layout_margin="20dp" android:text="+ Add Member"
         android:textColor="@color/white" app:backgroundTint="@color/header_green"
         app:icon="@drawable/ic_nav_members" app:iconTint="@color/white"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_import_csv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="90dp"
+        android:contentDescription="Import CSV"
+        android:src="@drawable/ic_import"
+        app:backgroundTint="@color/color_blue"
+        app:tint="@color/white"
+        app:fabSize="mini"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,9 +1,11 @@
 package com.khaga.ksociety.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,14 +31,33 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
 
-        adapter = FundAdapter { fund ->
-            // Open fund — show BottomNav
-            (requireActivity() as MainActivity).showBottomNav()
-            val detail = FundDetailFragment().apply {
-                arguments = Bundle().apply { putLong("fund_id", fund.id) }
+        adapter = FundAdapter(
+            onFundClick = { fund ->
+                (requireActivity() as MainActivity).showBottomNav()
+                val detail = FundDetailFragment().apply {
+                    arguments = Bundle().apply { putLong("fund_id", fund.id) }
+                }
+                (requireActivity() as MainActivity).navigateTo(detail, "fund_detail")
+            },
+            onFundLongClick = { fund ->
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Delete \"${fund.name}\"?")
+                    .setMessage("This will permanently delete this fund and all its data.")
+                    .setPositiveButton("Delete") { _, _ ->
+                        viewModel.deleteFund(fund.id) { success ->
+                            activity?.runOnUiThread {
+                                Toast.makeText(
+                                    requireContext(),
+                                    if (success) "Fund deleted." else "Failed to delete.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
             }
-            (requireActivity() as MainActivity).navigateTo(detail, "fund_detail")
-        }
+        )
         binding.rvFunds.layoutManager = LinearLayoutManager(requireContext())
         binding.rvFunds.adapter = adapter
 

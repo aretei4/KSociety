@@ -65,6 +65,21 @@ class FundDetailViewModel(app: Application) : AndroidViewModel(app) {
         _reports.postValue(reportDao.getByFund(fundId))
     }
 
+    /** Insert multiple members in a single IO transaction; returns count inserted. */
+    fun bulkInsertMembers(members: List<Member>, onDone: (Int) -> Unit) {
+        viewModelScope.launch {
+            val count = withContext(Dispatchers.IO) {
+                var inserted = 0
+                members.forEach { m -> if (memberDao.insert(m) > 0) inserted++ }
+                inserted
+            }
+            onDone(count)
+            if (count > 0) withContext(Dispatchers.IO) {
+                members.firstOrNull()?.fundId?.let { loadMembersInternal(it) }
+            }
+        }
+    }
+
     fun insertMember(member: Member, onDone: (Boolean) -> Unit) {
         viewModelScope.launch {
             val id = withContext(Dispatchers.IO) { memberDao.insert(member) }
@@ -99,6 +114,14 @@ class FundDetailViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             val ok = withContext(Dispatchers.IO) { paymentDao.delete(paymentId) }
             onDone(ok)
+        }
+    }
+
+    fun updatePayment(payment: Payment, onDone: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            val ok = withContext(Dispatchers.IO) { paymentDao.update(payment) }
+            onDone(ok)
+            if (ok) withContext(Dispatchers.IO) { loadPaymentsInternal(payment.fundId) }
         }
     }
 
